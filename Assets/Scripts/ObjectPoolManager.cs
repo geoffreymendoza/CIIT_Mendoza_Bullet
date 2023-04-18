@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ObjectPoolManager : MonoBehaviour {
     private Dictionary<string, Queue<GameObject>> objectPool = new Dictionary<string, Queue<GameObject>>();
+    private List<GameObject> parentObjs = new List<GameObject>();
 
     public static ObjectPoolManager Instance { private set; get; }
 
@@ -28,6 +29,18 @@ public class ObjectPoolManager : MonoBehaviour {
     private GameObject CreateNewObject(GameObject gameObj) {
         GameObject newGO = Instantiate(gameObj);
         newGO.name = gameObj.name;
+        GameObject parent = null;
+        foreach (var go in parentObjs) {
+            if (go.name != newGO.name)
+                continue;
+            parent = go;
+            break;
+        }
+        if (parent == null) {
+            parent = new GameObject(newGO.name);
+            parentObjs.Add(parent);
+        }
+        newGO.transform.SetParent(parent.transform);
         return newGO;
     }
 

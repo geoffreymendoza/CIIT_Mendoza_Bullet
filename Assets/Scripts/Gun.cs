@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (Time.time < shotTime) return;
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+        if (Input.GetKey(KeyCode.Mouse0)) {
             //Instantiate(SpawnFX, BulletSpawnpoint.position, BulletSpawnpoint.rotation);
             var vfx = ObjectPoolManager.Instance.GetObject(SpawnFX);
             vfx.transform.SetPositionAndRotation(BulletSpawnpoint.position, BulletSpawnpoint.rotation);
