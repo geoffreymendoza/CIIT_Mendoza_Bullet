@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour, IHealthHandler {
     public static event Action OnKilled;
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour, IHealthHandler {
             transform.position = Vector3.Lerp(lastPosition, targetPos, t);
             yield return new WaitForEndOfFrame();
         }
+        SceneManager.LoadScene(0);
     }
 
     // Update is called once per frame
